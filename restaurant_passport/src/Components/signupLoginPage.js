@@ -4,10 +4,12 @@ import SignupForm from "./signup";
 const LoginPage = (props)=> {
     return(  
     <div>
-        <h1>Signup</h1>
+        <h1>FullName</h1>
         <SignupForm/>
-        <h1>Login</h1>
-        <LoginForm {...props}/>
+        <h1>Email</h1>
+        <EmailForm/>
+        <h1>Password</h1>
+        <PasswordForm {...props}/>
     </div>
       
     )};
