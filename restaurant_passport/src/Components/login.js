@@ -1,66 +1,89 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import { withFormik, Form, Field} from "formik";
+import React, { useState, useEffect } from "react";
+import { Form, Field, withFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 
-function LoginForm({ values, errors, touched, isSubmitting }) {
-  return (
-     <div className="loginform">
-    <Form>
-      <div>
-        {touched.username && errors.username && <p>{errors.username}</p>}
-        <Field type="text" name="username" placeholder="username" />
-      </div>
-      <div>
-        {touched.password && errors.password && <p>{errors.password}</p>}
-        <Field type="password" name="password" placeholder="Password" />
-      </div>
-      
-      <button type="submit" disabled={isSubmitting}>Login &rarr;</button>
-    </Form>
-    </div> 
-    
-  );
-}
 
-const FormikLoginForm = withFormik({
-  mapPropsToValues({ username, email, password }) {
-    return {
-      username: username || "",
-      username: email || "",
-      password: password || "",
-      
-    };
-  },
-  validationSchema: Yup.object().shape({
-      username: Yup.string()
-      .required("username is required"),
-    password: Yup.string()
-      .min(6, "Password must be 6 characters or longer")
-      .required("Password is required")
-  }),
-  handleSubmit(values, formikBag) {
-    //console.log(formikBag);
-    if (values.username === "alreadytaken@atb.dev") {
-      formikBag.setErrors({ username: "That username is already taken" });
-    } else {
-      axios
-        .post(" https://foodie-pass.herokuapp.com/auth/login ", values)
-        .then(res => {
-          localStorage.setItem('token', res.data.token);
-          formikBag.props.history.push('/');
-          console.log(res); // Data was created successfully and logs to console
-          formikBag.resetForm();
-          formikBag.setSubmitting(false);
+const UserForm = ({errors, touched, values, status}) => {
+    const [forms, setForms] = useState([]);
 
-        })
-        .catch(err => {
-          console.log(err); // There was an error creating the data and logs to console
-          //setSubmitting(false);
-        });
+    useEffect(() => {
+    if (status) {
+        setForms([...forms, status]);
+
     }
-  }
-})(LoginForm);
+}, [status]);
+
+return (
+    <div className="userForm">
+    <h1>User Form</h1>
+    <Form>
+     <Field type="text" name="name" placeholder="Name" />
+     {touched.name && errors.name && (
+         <p className="error">{errors.name}</p>
+     )}
+     <Field type="email" name="email" placeholder="email" />
+     {touched.email && errors.email && (
+         <p className="error">{errors.email}</p>
+     )}
+     <Field type="password" name="password" placeholder="password" />
+     {touched.password && errors.password && (
+         <p className="error">{errors.password}</p>
+     )}
+     <label className="checkbox">Accept Terms of Service
+     <Field type="checkbox" name="terms" checked={values.terms} />
+     <span className="checkmark" />
+     {touched.terms && errors.terms && (
+         <p className="error">{errors.terms}</p>
+     )}
+     </label>
+
+     <button type="submit">Submit!</button>
+        </Form>    
+
+     {forms.map(user => (
+     <ul key={user.id}>
+         <li>Name: {user.name}</li>
+         <li>Email: {user.email}</li>
+         <li>Password: {user.password}</li>
+     </ul>
+     ))}
  
-export default FormikLoginForm;
+
+    </div>
+);
+
+
+};
+
+
+ const FormikUserForm = withFormik({
+
+    mapPropsToValues({name, email, password, terms }) {
+        return {
+            name: name || "",
+            email: email || "",
+            password: password || "",
+            terms: terms || false
+        };
+    },
+
+    validationSchema: Yup.object().shape({
+        name: Yup.string().required("please type full name here"),
+        email: Yup.string().required("we need a valid email"),
+        password: Yup.string().required().min(6, 'password has to be longer than 6'),
+        terms: Yup.bool().test('consent', 'You have to agree with our Terms and Conditions!', value => value === true)
+      .required('You have to agree with our Terms and Conditions!'),
+    }),
+    handleSubmit(values, { setStatus}) {
+    axios
+        .post("https://reqres.in/api/users/", values)
+        .then(res => {
+            setStatus(res.data);
+        })
+        .catch(err => console.log(err.response));
+    }
+
+})(UserForm) ;
+
+export default FormikUserForm;  
