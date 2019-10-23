@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Form, Field, withFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
+import {Link} from "react-router-dom";
 
 
 const UserForm = ({errors, touched, values, status}) => {
@@ -16,12 +17,9 @@ const UserForm = ({errors, touched, values, status}) => {
 
 return (
     <div className="userForm">
-    <h1>User Form</h1>
+    <h1>Welcome back</h1>
     <Form>
-     <Field type="text" name="name" placeholder="Name" />
-     {touched.name && errors.name && (
-         <p className="error">{errors.name}</p>
-     )}
+    
      <Field type="email" name="email" placeholder="email" />
      {touched.email && errors.email && (
          <p className="error">{errors.email}</p>
@@ -39,6 +37,9 @@ return (
      </label>
 
      <button type="submit">Submit!</button>
+<Link to = {"/Signup"}>
+     <button> Sign Up </button>
+     </Link>
         </Form>    
 
      {forms.map(user => (
