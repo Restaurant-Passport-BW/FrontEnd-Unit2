@@ -44,7 +44,22 @@ color: #202020;
 Form{
   display:flex;
   flex-direction:column;
-
+  
 }
 
+.header {
+  padding: 60px;
+  text-align: center;
+  background: transparent;
+  color: white;
+  font-size: 30px;
+  border:3px solid pink;
+}
 
+input{
+  margin: 0 0 20px 0;
+}
+
+formgroup{
+  align-items: center;
+}

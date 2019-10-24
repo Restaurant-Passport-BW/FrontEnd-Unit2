@@ -4,7 +4,12 @@ import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
 const Signup = (props) => {
   return (
+      <div>
     <Form inline>
+        <div className="header">
+                <h1>DISCOVER THE WORLD WITH FOODS, TRAVEL, TASTE AND TOUR AROUND YOUR CITY.</h1>
+                </div>
+        <div className="Forms">
         <FormGroup>
         <Label for="exampleUsername" hidden>Username</Label>
         <Input type="Username" name="Username" id="exampleUsername" placeholder="Username" />
@@ -21,8 +26,14 @@ const Signup = (props) => {
       </FormGroup>
       {' '}
       <Button>Submit</Button>
+      </div>
     </Form>
+    <div className="footer">
+        Restaurant Passport @2019
+    </div>
+    </div>
   );
 }
 
 export default Signup;
+

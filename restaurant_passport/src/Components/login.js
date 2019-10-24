@@ -3,7 +3,12 @@ import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
 const Login = (props) => {
   return (
+    <div>
     <Form inline>
+    <div className="header">
+                <h1>Welcome Back!</h1>
+                </div>
+    <div className="Forms">         
       <FormGroup>
         <Label for="exampleEmail" hidden>Email</Label>
         <Input type="email" name="email" id="exampleEmail" placeholder="Email" />
@@ -15,7 +20,12 @@ const Login = (props) => {
       </FormGroup>
       {' '}
       <Button>Submit</Button>
+      </div>
     </Form>
+    <div className="footer">
+        Restaurant Passport @2019
+    </div>
+    </div>
   );
 }
 
