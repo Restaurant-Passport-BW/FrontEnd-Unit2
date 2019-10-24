@@ -60,6 +60,15 @@ input{
   margin: 0 0 20px 0;
 }
 
-formgroup{
-  align-items: center;
+button{
+  background-color:#3C38FC;
+  border: none;
+  color: white;
+  padding: 15px;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 80%;
+  font-size: 15px;
+  margin: 4px 2px;
 }
+

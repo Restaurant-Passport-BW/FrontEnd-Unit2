@@ -1,17 +1,19 @@
 import React from 'react';
+import { Route } from "react-router-dom";
 
-import Signup from "../src/Components/Signup";
-import Login from "../src/Components/Login";
+import Signup from "../src/Components/Signup/Signup";
+import Login from "./Login";
 
 
 import './App.css';
 
 
-function App() {
+function App(){
   return (
      <div className = "App" >
-       <Signup/>
        <Login/>
+      <Route exact path="/" Components= {Signup}/>
+      
     </div>
   );
 }
