@@ -1,98 +1,28 @@
-import React, { useState, useEffect } from "react";
-import { Form, Field, withFormik } from "formik";
-import * as Yup from "yup";
-import axios from "axios"; 
-import {Link} from "react-router-dom"
-import styled from "styled-components"
-
-export const Formstyle=styled.div`
-
-`
-
-const UserForm = ({errors, touched, values, status}) => {
-    const [forms, setForms] = useState([]);
-
-    useEffect(() => {
-    if (status) {
-        setForms([...forms, status]);
-
-    }
-}, [status]);
-
-return (
-    <Formstyle>
-    <div className="userForm">
-    <h1>Sign Up</h1>
-    <Form>
-     <Field type="text" name="name" placeholder="Name" />
-     {touched.name && errors.name && (
-         <p className="error">{errors.name}</p>
-     )}
-     <Field type="email" name="email" placeholder="email" />
-     {touched.email && errors.email && (
-         <p className="error">{errors.email}</p>
-     )}
-     <Field type="password" name="password" placeholder="password" />
-     {touched.password && errors.password && (
-         <p className="error">{errors.password}</p>
-     )}
-     <label className="checkbox">Accept Terms of Service
-     <Field type="checkbox" name="terms" checked={values.terms} />
-     <span className="checkmark" />
-     {touched.terms && errors.terms && (
-         <p className="error">{errors.terms}</p>
-     )}
-     </label>
-<Link to= {"/"}>
-     <button type="submit">Continue</button>
-     </Link>\
-     </Form>
-        </div>   
-
-     {forms.map(user => (
-     <ul key={user.id}>
-         <li>Name: {user.name}</li>
-         <li>Email: {user.email}</li>
-         <li>Password: {user.password}</li>
-     </ul>
-     ))}
- 
-
-    </Formstyle>
-    
-);
+import React from 'react';
+import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
 
-};
+const Signup = (props) => {
+  return (
+    <Form inline>
+        <FormGroup>
+        <Label for="exampleUsername" hidden>Username</Label>
+        <Input type="Username" name="Username" id="exampleUsername" placeholder="Username" />
+      </FormGroup>
+      {' '}
+      <FormGroup>
+        <Label for="exampleEmail" hidden>Email</Label>
+        <Input type="email" name="email" id="exampleEmail" placeholder="Email" />
+      </FormGroup>
+      {' '}
+      <FormGroup>
+        <Label for="examplePassword" hidden>Password</Label>
+        <Input type="password" name="password" id="examplePassword" placeholder="Password" />
+      </FormGroup>
+      {' '}
+      <Button>Submit</Button>
+    </Form>
+  );
+}
 
-
- const FormikUserForm = withFormik({
-
-    mapPropsToValues({name, email, password, terms }) {
-        return {
-            name: name || "",
-            email: email || "",
-            password: password || "",
-            terms: terms || false
-        };
-    },
-
-    validationSchema: Yup.object().shape({
-        name: Yup.string().required("please type full name here"),
-        email: Yup.string().required("we need a valid email"),
-        password: Yup.string().required().min(6, 'password has to be longer than 6'),
-        terms: Yup.bool().test('consent', 'You have to agree with our Terms and Conditions!', value => value === true)
-      .required('You have to agree with our Terms and Conditions!'),
-    }),
-    handleSubmit(values, { setStatus}) {
-    axios
-        .post("https://reqres.in/api/users/", values)
-        .then(res => {
-            setStatus(res.data);
-        })
-        .catch(err => console.log(err.response));
-    }
-
-})(UserForm) ;
-
-export default FormikUserForm;  
+export default Signup;
