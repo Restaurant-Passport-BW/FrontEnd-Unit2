@@ -3,6 +3,7 @@ import React from 'react';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import bg from "../../food.jpg";
 import "./Signup.css"
+import {Link} from "react-router-dom"
 const Signup = (props) => {
   return (
       <div className="Signup">
@@ -32,10 +33,15 @@ const Signup = (props) => {
       </FormGroup>
       {' '}
       <Button>Submit</Button>
+      <p>Already a member?</p>
+      <Link to ="/">
+        <button>Click Here</button>
+      </Link>
+      
       </div>
     </Form>
     
-    <div className="footer">
+    <div className="Footer">
         Restaurant Passport @2019
     </div>
     </div>

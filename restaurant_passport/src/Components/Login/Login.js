@@ -25,10 +25,11 @@ const Login = (props) => {
       </FormGroup>
       {' '}
       <Button>Submit</Button>
+     
       </div>
     </Form>
     
-    <div className="footer">
+    <div className="Footer">
         Restaurant Passport @2019
     </div>
     </div>
